@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lorena Iriarte Ospina — Beauty Artist · Nueva York</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --sand: #e8ddd0;
+    --taupe: #c4a882;
+    --bronze: #a07850;
+    --deep: #2a1f14;
+    --charcoal: #3d3028;
+    --accent: #c9956a;
+    --gold: #b8965a;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-white);
+    color: var(--deep);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid var(--taupe);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 28px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    mix-blend-mode: multiply;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    font-weight: 400;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--deep);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 80px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(160,120,80,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(201,149,106,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--taupe);
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 86px);
+    line-height: 0.95;
+    color: var(--cream);
+    font-weight: 300;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--taupe);
+  }
+
+  .hero-desc {
+    font-size: 13px;
+    line-height: 2;
+    color: rgba(245,240,232,0.55);
+    max-width: 320px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin-bottom: 60px;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 400;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+    transition: gap 0.3s;
+  }
+  .hero-cta:hover { gap: 28px; }
+  .hero-cta::after {
+    content: '→';
+    font-size: 16px;
+  }
+
+  .hero-right {
+    background: var(--sand);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Decorative geometric art instead of image */
+  .hero-art {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .art-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(160,120,80,0.3);
+    animation: slowSpin 30s linear infinite;
+  }
+  .art-circle:nth-child(1) { width: 500px; height: 500px; }
+  .art-circle:nth-child(2) { width: 380px; height: 380px; animation-direction: reverse; animation-duration: 20s; border-color: rgba(201,149,106,0.4); }
+  .art-circle:nth-child(3) { width: 250px; height: 250px; animation-duration: 15s; }
+
+  .art-initials {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 180px;
+    color: rgba(160,120,80,0.15);
+    font-weight: 300;
+    line-height: 1;
+    position: absolute;
+    user-select: none;
+  }
+
+  .art-badge {
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--deep);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: slowSpin 20s linear infinite;
+  }
+  .art-badge-inner {
+    text-align: center;
+    animation: slowSpin 20s linear infinite reverse;
+  }
+  .art-badge-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    color: var(--gold);
+    line-height: 1;
+    font-weight: 300;
+  }
+  .art-badge-text {
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    font-weight: 400;
+  }
+
+  .hero-location {
+    position: absolute;
+    top: 100px;
+    right: 40px;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    writing-mode: vertical-rl;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeIn 1s 1.2s forwards;
+  }
+  .hero-location::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 50px;
+    background: var(--taupe);
+  }
+
+  /* MARQUEE */
+  .marquee-strip {
+    background: var(--deep);
+    padding: 18px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-flex;
+    animation: marquee 18s linear infinite;
+  }
+  .marquee-item {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    padding: 0 50px;
+    font-weight: 400;
+  }
+  .marquee-dot {
+    color: var(--accent);
+    padding: 0 4px;
+  }
+
+  /* ABOUT */
+  #sobre-mi {
+    padding: 140px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 100px;
+    align-items: start;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .about-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .about-label::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: var(--taupe);
+  }
+  .about-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 4vw, 62px);
+    line-height: 1.1;
+    font-weight: 300;
+    color: var(--deep);
+    margin-bottom: 0;
+  }
+  .about-heading em { font-style: italic; color: var(--accent); }
+
+  .about-right {}
+  .about-text {
+    font-size: 15px;
+    line-height: 1.95;
+    color: var(--charcoal);
+    font-weight: 300;
+    margin-bottom: 40px;
+    opacity: 0.85;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--sand);
+    border: 1px solid var(--sand);
+    margin-top: 60px;
+  }
+  .stat-box {
+    background: var(--warm-white);
+    padding: 32px 28px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    color: var(--deep);
+    font-weight: 300;
+    line-height: 1;
+    display: block;
+  }
+  .stat-num sup {
+    font-size: 22px;
+    vertical-align: super;
+  }
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-top: 8px;
+    display: block;
+    font-weight: 400;
+  }
+
+  /* SERVICES */
+  #servicios {
+    background: var(--deep);
+    padding: 140px 60px;
+  }
+  .services-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+  }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-bottom: 20px;
+  }
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 4vw, 58px);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.1;
+  }
+  .section-heading em { font-style: italic; color: var(--taupe); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(196,168,130,0.2);
+  }
+  .service-card {
+    background: var(--deep);
+    padding: 50px 42px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--taupe), transparent);
+    transform: scaleX(0);
+    transition: transform 0.5s;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: rgba(42,31,20,0.7); }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 32px;
+    display: block;
+  }
+  .service-icon {
+    font-size: 32px;
+    margin-bottom: 28px;
+    display: block;
+    opacity: 0.8;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    color: var(--cream);
+    font-weight: 300;
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  .service-desc {
+    font-size: 13px;
+    line-height: 1.9;
+    color: rgba(245,240,232,0.5);
+    font-weight: 300;
+  }
+
+  /* BRANDS */
+  #marcas {
+    padding: 100px 60px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .brands-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    text-align: center;
+    margin-bottom: 70px;
+  }
+  .brands-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  .brand-card {
+    border: 1px solid var(--sand);
+    padding: 52px 50px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.4s;
+  }
+  .brand-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent);
+    transition: width 0.5s;
+  }
+  .brand-card:hover { border-color: var(--taupe); transform: translateY(-4px); }
+  .brand-card:hover::after { width: 100%; }
+
+  .brand-emoji {
+    font-size: 36px;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--deep);
+    margin-bottom: 10px;
+  }
+  .brand-sub {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    font-weight: 400;
+  }
+  .brand-desc {
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: var(--charcoal);
+    font-weight: 300;
+    margin-top: 24px;
+    opacity: 0.8;
+  }
+  .brand-founder {
+    margin-top: 20px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand-founder::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* CONTACT */
+  #contacto {
+    background: var(--cream);
+    padding: 140px 60px;
+  }
+  .contact-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .contact-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-bottom: 32px;
+  }
+  .contact-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 300;
+    color: var(--deep);
+    line-height: 1.05;
+    margin-bottom: 40px;
+  }
+  .contact-heading em { font-style: italic; color: var(--accent); }
+  .contact-sub {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--charcoal);
+    font-weight: 300;
+    max-width: 520px;
+    margin: 0 auto 60px;
+    opacity: 0.8;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--deep);
+    transition: color 0.3s;
+  }
+  .contact-link:hover { color: var(--accent); }
+  .contact-link-icon {
+    width: 52px; height: 52px;
+    border: 1px solid var(--taupe);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .contact-link:hover .contact-link-icon {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+  .contact-link-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    padding: 50px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--cream);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+  }
+  .footer-copy {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(245,240,232,0.3);
+    font-weight: 300;
+  }
+  .footer-city {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 24px 28px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 50vw; }
+    .hero-left { padding: 120px 36px 60px; }
+    #sobre-mi { grid-template-columns: 1fr; gap: 50px; padding: 80px 28px; }
+    #servicios { padding: 80px 28px; }
+    .services-grid { grid-template-columns: 1fr; }
+    #marcas { padding: 80px 28px; }
+    .brands-grid { grid-template-columns: 1fr; }
+    #contacto { padding: 80px 28px; }
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 28px; }
+    .stats-row { grid-template-columns: 1fr; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-logo">Lorena Iriarte</div>
+  <ul class="nav-links">
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#marcas">Mis marcas</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Beauty Artist · New York</div>
+    <h1 class="hero-name">
+      Lorena<br>
+      <em>Iriarte</em><br>
+      Ospina
+    </h1>
+    <p class="hero-desc">
+      Especialista en nanopigmentación con más de once años de trayectoria. Transformando rostros y vidas desde Nueva York.
+    </p>
+    <a href="#servicios" class="hero-cta">Explorar servicios</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-art">
+      <div class="art-circle"></div>
+      <div class="art-circle"></div>
+      <div class="art-circle"></div>
+      <div class="art-initials">LI</div>
+    </div>
+    <div class="art-badge">
+      <div class="art-badge-inner">
+        <span class="art-badge-num">11</span>
+        <span class="art-badge-text">años</span>
+      </div>
+    </div>
+    <div class="hero-location">Nueva York, NY</div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span class="marquee-item">Nanopigmentación <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Beauty Artist <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Casa Shalon <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Cejilash <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Nueva York <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">11 Años de Experiencia <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Nanopigmentación <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Beauty Artist <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Casa Shalon <span class="marquote-dot">✦</span></span>
+    <span class="marquee-item">Cejilash <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Nueva York <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">11 Años de Experiencia <span class="marquee-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- About -->
+<section id="sobre-mi">
+  <div>
+    <p class="about-label">Mi historia</p>
+    <h2 class="about-heading">
+      Arte que<br>
+      <em>transforma</em><br>
+      vidas
+    </h2>
+  </div>
+  <div class="about-right reveal">
+    <p class="about-text">
+      Soy Lorena Iriarte Ospina, beauty artist especializada en nanopigmentación con más de <strong>11 años de experiencia</strong> en la industria de la belleza. Radicada en Nueva York, mi trabajo fusiona técnica avanzada y visión artística para crear resultados que realzan la belleza natural de cada persona.
+    </p>
+    <p class="about-text">
+      Mi pasión por el arte y la precisión me llevó a fundar <strong>Casa Shalon</strong> y <strong>Cejilash</strong>, dos marcas que representan mi filosofía: la belleza es un arte que merece los más altos estándares de calidad y cuidado.
+    </p>
+    <div class="stats-row">
+      <div class="stat-box">
+        <span class="stat-num">11<sup>+</sup></span>
+        <span class="stat-label">Años de exp.</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">2</span>
+        <span class="stat-label">Marcas fundadas</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">NY</span>
+        <span class="stat-label">Nueva York</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="servicios">
+  <div class="services-inner">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Lo que hago</p>
+        <h2 class="section-heading">Mis <em>servicios</em></h2>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-num">01</span>
+        <span class="service-icon">🖊️</span>
+        <h3 class="service-name">Nanopigmentación</h3>
+        <p class="service-desc">Técnica de micropigmentación de alta precisión para cejas, labios y delineado. Resultados naturales y duraderos con pigmentos de primera calidad.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">02</span>
+        <span class="service-icon">✨</span>
+        <h3 class="service-name">Diseño de Cejas</h3>
+        <p class="service-desc">Arquitectura y diseño personalizado de cejas con métodos de nanopigmentación. Cada trazo es calculado para armonizar con los rasgos únicos del rostro.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">03</span>
+        <span class="service-icon">👁️</span>
+        <h3 class="service-name">Extensión de Pestañas</h3>
+        <p class="service-desc">Técnicas profesionales de extensión y lifting de pestañas para una mirada más intensa, definida y duradera sin esfuerzo diario.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">04</span>
+        <span class="service-icon">💄</span>
+        <h3 class="service-name">Pigmentación de Labios</h3>
+        <p class="service-desc">Perfilado y relleno de labios mediante nanopigmentación para un color perfecto y definición permanente, natural o glamorosa.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">05</span>
+        <span class="service-icon">🎓</span>
+        <h3 class="service-name">Formación Profesional</h3>
+        <p class="service-desc">Cursos y talleres especializados en nanopigmentación y técnicas de belleza para profesionales que desean alcanzar el máximo nivel.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">06</span>
+        <span class="service-icon">🌿</span>
+        <h3 class="service-name">Consultoría de Imagen</h3>
+        <p class="service-desc">Asesoramiento personalizado para definir y potenciar la imagen personal con técnicas de belleza semi-permanente adaptadas a cada estilo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Brands -->
+<section id="marcas">
+  <p class="brands-label">✦ Mis marcas ✦</p>
+  <div class="brands-grid">
+    <div class="brand-card reveal">
+      <span class="brand-emoji">🏠</span>
+      <h3 class="brand-name">Casa Shalon</h3>
+      <span class="brand-sub">Beauty Studio · Nueva York</span>
+      <p class="brand-desc">Un espacio íntimo y sofisticado dedicado al arte de la belleza permanente. Casa Shalon es sinónimo de excelencia, calidez y transformación personal en el corazón de Nueva York.</p>
+      <span class="brand-founder">Fundadora</span>
+    </div>
+    <div class="brand-card reveal">
+      <span class="brand-emoji">👁️</span>
+      <h3 class="brand-name">Cejilash</h3>
+      <span class="brand-sub">Cejas & Pestañas · Especialistas</span>
+      <p class="brand-desc">Marca especializada en el universo de cejas y pestañas. Productos, técnicas y servicios de alta gama que elevan la mirada a su máxima expresión con precisión artística.</p>
+      <span class="brand-founder">Fundadora</span>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contacto">
+  <div class="contact-inner reveal">
+    <p class="contact-label">✦ Hablemos ✦</p>
+    <h2 class="contact-heading">
+      Agenda tu<br>
+      <em>cita</em>
+    </h2>
+    <p class="contact-sub">
+      ¿Lista para transformar tu imagen? Contáctame y agenda tu consulta personalizada en Nueva York. Cada tratamiento es único, diseñado especialmente para ti.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:lorena@cejilash.com" class="contact-link">
+        <div class="contact-link-icon">✉</div>
+        <span class="contact-link-label">Email</span>
+      </a>
+      <a href="https://instagram.com" class="contact-link" target="_blank">
+        <div class="contact-link-icon">📸</div>
+        <span class="contact-link-label">Instagram</span>
+      </a>
+      <a href="https://wa.me/1" class="contact-link" target="_blank">
+        <div class="contact-link-icon">💬</div>
+        <span class="contact-link-label">WhatsApp</span>
+      </a>
+      <a href="tel:+1" class="contact-link">
+        <div class="contact-link-icon">☎</div>
+        <span class="contact-link-label">Teléfono</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Lorena Iriarte Ospina</div>
+  <div class="footer-copy">© 2025 · Todos los derechos reservados</div>
+  <div class="footer-city">📍 Nueva York, NY</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Scale cursor on hover
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.transform = 'translate(-50%, -50%) scale(2)';
+      ring.style.borderColor = 'var(--accent)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.transform = 'translate(-50%, -50%) scale(1)';
+      ring.style.borderColor = 'var(--taupe)';
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
